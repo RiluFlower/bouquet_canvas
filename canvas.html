@@ -105,7 +105,9 @@
 
     /* Picker */
     .picker-section { padding: 12px 12px 80px; flex: 1; overflow-y: auto; }
-    .picker-section h2 { font-size: 0.75rem; color: #555; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .picker-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .picker-header h2 { font-size: 0.75rem; color: #555; letter-spacing: 0.06em; margin-bottom: 0; }
+    .total-price { font-size: 0.85rem; font-weight: bold; color: var(--accent); letter-spacing: 0.03em; }
     .flower-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
     .flower-card {
       background: var(--light); border: 1.5px solid var(--border);
@@ -195,7 +197,10 @@
 </div>
 
 <div class="picker-section">
-  <h2>— Choose Flowers —</h2>
+  <div class="picker-header">
+    <h2>— Choose Flowers —</h2>
+    <span class="total-price" id="total-price">¥0</span>
+  </div>
   <div class="flower-grid" id="flower-grid"></div>
 </div>
 
@@ -277,6 +282,14 @@ const FLOWERS = [
     colors:[{n:'アザミ',h:0},{n:'パープル',h:0}] },
 ];
 
+const PRICES = {
+  margaret: 1500, suzuran: 1600, tulip: 1100, daisy: 1300,
+  camomile: 1100, oncidium: 1800, minisunflower: 1300, minirose: 1300,
+  poppy: 1700, gradrose: 1700, rose: 1700, damask: 1700,
+  snowpop: 900, leaf: 900, snowwillow: 900, zinnia: 1700,
+  kasumisou: 900, koflower: 900, lavender: 900,
+};
+
 let selected = [];
 let currentFlower = null;
 let currentColorIdx = 0;
@@ -324,7 +337,7 @@ function svgShape(type, hex, w, h) {
         ${[-1,0,1].map(dx=>[-1,0,1].map(dy=>`<circle cx="${cx+dx*w*0.14}" cy="${cy+dy*h*0.14}" r="${w*0.08}" fill="${c}" opacity="0.8"/>`).join('')).join('')}
         <line x1="${cx}" y1="${cy+h*0.22}" x2="${cx}" y2="${h}" stroke="#6a9e5a" stroke-width="2"/>
       </svg>`;
-    default: /* daisy, poppy, bell, orchid */
+    default:
       return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
         ${[0,60,120,180,240,300].map(a=>`<ellipse cx="${cx+Math.cos(a*Math.PI/180)*w*0.22}" cy="${cy+Math.sin(a*Math.PI/180)*h*0.2}" rx="${w*0.12}" ry="${h*0.16}" fill="${c}" opacity="0.8"/>`).join('')}
         <circle cx="${cx}" cy="${cy}" r="${w*0.1}" fill="#ffd700" opacity="0.95"/>
@@ -407,10 +420,16 @@ function clearAll() {
   refresh();
 }
 
+function renderTotal() {
+  const total = selected.reduce((sum, s) => sum + (PRICES[s.fid] || 0), 0);
+  document.getElementById('total-price').textContent = total === 0 ? '¥0' : '¥' + total.toLocaleString();
+}
+
 function refresh() {
   renderBouquet();
   renderBar();
   renderGrid();
+  renderTotal();
 }
 
 /* ---- Selected bar ---- */
@@ -441,13 +460,6 @@ function renderBouquet() {
   const bx = W/2;
   const fh = 390;
 
-  /*
-   * drawItem: renders one flower.
-   * angle    = base fan angle (from layout algorithm)
-   * ay       = anchorY (rotation pivot, below visible area)
-   * manualRot is ADDED to angle → totalAngle stored in data-basangle on inner <g>
-   * so DOM-only update during pinch: innerG.setAttribute('transform', 'rotate(totalAngle bx ay)')
-   */
   function drawItem(s, angle, ay) {
     if (!s) return '';
     const anchorY = ay !== undefined ? ay : H;
@@ -547,11 +559,10 @@ function attachFlowerDrag(svg) {
 
   svg.addEventListener('touchstart', e => {
     if (e.touches.length === 2) {
-      // 2本指: 花の上なら回転、空きエリアならグローバルズームに委譲
       const el0 = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)?.closest('[data-idx]');
       const el1 = document.elementFromPoint(e.touches[1].clientX, e.touches[1].clientY)?.closest('[data-idx]');
       const el = el0 || el1;
-      if (!el) return; // 花の上でなければ何もしない（グローバルに委譲）
+      if (!el) return;
       e.preventDefault();
       e.stopPropagation();
       const idx = parseInt(el.getAttribute('data-idx'));
@@ -583,7 +594,6 @@ function attachFlowerDrag(svg) {
       const delta = curAngle - rotating.startAngle;
       const newManualRot = rotating.startRot + delta;
       selected[rotating.idx].manualRot = newManualRot;
-      // DOMを直接更新（再レンダリング不要）
       const innerG = rotating.el.querySelector('g');
       if (innerG) {
         const baseAngle = parseFloat(innerG.dataset.basangle || 0);
@@ -632,7 +642,7 @@ function flowerElem(type, hex, cx, cy) {
   }
 }
 
-/* ---- 空きエリアへのパン（1本指）＆ズーム（2本指、花以外） ---- */
+/* ---- 空きエリアへのパン＆ズーム ---- */
 (function() {
   const SVG_W = 300, SVG_H = 360;
   const wrap = document.querySelector('.bouquet-wrap');
