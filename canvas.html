@@ -124,10 +124,6 @@
     .flower-card[data-fid="koflower"] img { transform:scale(2.0); }
     .flower-card[data-fid="kasumisou"] img { transform:scale(2.0); }
     .flower-card[data-fid="snowwillow"] img { transform:scale(1.5); }
-    .flower-card[data-fid="damask"] img { transform: translateY(-33px) scale(4.0); }
-    .flower-card[data-fid="lavender"] img { transform: translateY(-53px) scale(4.0); }
-    .flower-card[data-fid="minipuff"] img { transform: translateY(-89px) scale(4.0); }
-    .flower-card[data-fid="wasurenagusa"] img { transform: translateY(-89px) scale(4.0); }
     .flower-card .f-svg { width:48px; height:60px; display:block; margin:0 auto; }
     .flower-card .f-name { font-size: 0.8rem; color: var(--text); margin-top:3px; line-height:1.2; }
     .flower-card .color-dots { display:flex; justify-content:center; gap:2px; margin-top:3px; flex-wrap:wrap; }
@@ -168,10 +164,6 @@
     .color-option.active { border-color:var(--accent); background:#fff5f3; }
     .color-option .img-wrap { width:80px; height:100px; overflow:hidden; margin:0 auto; }
     .color-option img { width:80px; height:100px; object-fit:contain; display:block; transform:scale(1.8); transform-origin:top center; }
-    .color-option[data-fid="damask"] img { transform: translateY(-55px) scale(4.0); }
-    .color-option[data-fid="lavender"] img { transform: translateY(-87px) scale(4.0); }
-    .color-option[data-fid="minipuff"] img { transform: translateY(-147px) scale(4.0); }
-    .color-option[data-fid="wasurenagusa"] img { transform: translateY(-147px) scale(4.0); }
     .color-option .c-svg { width:56px; height:76px; display:block; margin:0 auto; }
     .color-option .c-name { font-size:0.58rem; color:var(--text); margin-top:4px; line-height:1.3; }
     .sheet-add-btn {
@@ -250,27 +242,48 @@ function u(name, color) {
 }
 
 const FLOWERS = [
-  { id:'margaret',      name:'マーガレット',       type:'daisy',    colors:[{n:'ホワイトセージ',h:1}] },
-  { id:'suzuran',       name:'すずらん',            type:'bell',     colors:[{n:'ホワイトセージ',h:1},{n:'ホワイトオリーブ',h:1}] },
-  { id:'tulip',         name:'チューリップ',         type:'tulip',    colors:[{n:'カーマインレッド',h:1},{n:'ローズピンク',h:1},{n:'ヒマワリ',h:1},{n:'キャロット',h:1},{n:'ダスティブルー',h:1},{n:'シトラス',h:1},{n:'ライラック',h:1},{n:'レッド',h:1}] },
-  { id:'daisy',         name:'デイジー',             type:'daisy',    colors:[{n:'ミルクホワイトセージ',h:1}] },
-  { id:'camomile',      name:'カモミール',           type:'daisy',    colors:[{n:'ホワイトセージ',h:1}] },
-  { id:'oncidium',      name:'オンシジューム',        type:'orchid',   colors:[{n:'イエロー',h:1},{n:'ライトイエロー',h:1}] },
-  { id:'minisunflower', name:'ミニヒマワリ',          type:'sunflower',colors:[{n:'ヒマワリ',h:1},{n:'イエロー',h:1},{n:'クリームイエロー',h:1}] },
-  { id:'minirose',      name:'ミニローズ',            type:'rose',     colors:[{n:'アクア',h:1},{n:'アザミ',h:1},{n:'コーラルピンク',h:1},{n:'ピンク',h:1},{n:'キャロット',h:1},{n:'ダスティブルー',h:1}] },
-  { id:'poppy',         name:'ポピー',               type:'poppy',    colors:[{n:'コーラルピンク',h:1},{n:'カーマインレッド',h:1},{n:'アザミ',h:1}] },
-  { id:'gradrose',      name:'グラデーションローズ',  type:'rose',     colors:[{n:'Gイエロー',h:1},{n:'Gピンク',h:1},{n:'Gレッド',h:1}] },
-  { id:'rose',          name:'ローズ',               type:'rose',     colors:[{n:'レッド',h:1},{n:'ライトピンク',h:1},{n:'ライトブルー',h:1},{n:'クリームイエロー',h:1}] },
-  { id:'damask',        name:'ダマスクローズ',         type:'rose',     colors:[{n:'コーラルピンク',h:1},{n:'ライトブルー',h:1}] },
-  { id:'snowpop',       name:'スノーポップ',           type:'poppy',    colors:[{n:'ヒマワリ',h:1},{n:'ライトピンク',h:1},{n:'ミルクホワイト',h:1}] },
-  { id:'leaf',          name:'リーフ',               type:'leaf',     colors:[{n:'セージ',h:1},{n:'オリーブ',h:1}] },
-  { id:'snowwillow',    name:'スノーウィロー',         type:'leaf',     colors:[{n:'セージ',h:1},{n:'オリーブ',h:1}] },
-  { id:'zinnia',        name:'ジニア',               type:'daisy',    colors:[{n:'アザミ',h:1},{n:'ダスティブルー',h:1},{n:'カーマインレッド',h:1},{n:'クリームイエロー',h:1},{n:'ベビーピンク',h:1}] },
-  { id:'kasumisou',     name:'カスミソウ',            type:'small',    colors:[{n:'ホワイト',h:1}] },
-  { id:'koflower',      name:'小花',                 type:'small',    colors:[{n:'ベビーピンク',h:1},{n:'コーラルピンク',h:1},{n:'ローズピンク',h:1},{n:'ライトアクア',h:1},{n:'シトラス',h:1},{n:'クリームイエロー',h:1},{n:'マゼンタ',h:1},{n:'ベージュ',h:1},{n:'アザミ',h:1},{n:'カーマインレッド',h:1},{n:'オレンジ',h:1},{n:'ライトブルー',h:1},{n:'ダスティブルー',h:1}] },
-  { id:'lavender',      name:'ラベンダー',            type:'lavender', colors:[{n:'アザミ',h:1},{n:'パープル',h:1}] },
-  { id:'minipuff',      name:'ミニパフフラワー',       type:'daisy',    colors:[{n:'ホワイト',h:1}] },
-  { id:'wasurenagusa',  name:'勿忘草',               type:'small',    colors:[{n:'ライトイエロー',h:1},{n:'ライトピンク',h:1},{n:'ライトブルー',h:1}] },
+  { id:'margaret',      name:'マーガレット',       type:'daisy',
+    colors:[{n:'ホワイトセージ',h:1}] },
+  { id:'suzuran',       name:'すずらん',            type:'bell',
+    colors:[{n:'ホワイトセージ',h:1},{n:'ホワイトオリーブ',h:1}] },
+  { id:'tulip',         name:'チューリップ',         type:'tulip',
+    colors:[{n:'カーマインレッド',h:1},{n:'ローズピンク',h:1},{n:'ヒマワリ',h:1},{n:'キャロット',h:1},{n:'ダスティブルー',h:1},{n:'シトラス',h:1},{n:'ライラック',h:1},{n:'レッド',h:1}] },
+  { id:'daisy',         name:'デイジー',             type:'daisy',
+    colors:[{n:'ミルクホワイトセージ',h:1}] },
+  { id:'camomile',      name:'カモミール',           type:'daisy',
+    colors:[{n:'ホワイトセージ',h:1}] },
+  { id:'oncidium',      name:'オンシジューム',        type:'orchid',
+    colors:[{n:'イエロー',h:1},{n:'ライトイエロー',h:1}] },
+  { id:'minisunflower', name:'ミニヒマワリ',          type:'sunflower',
+    colors:[{n:'ヒマワリ',h:1},{n:'イエロー',h:1},{n:'クリームイエロー',h:1}] },
+  { id:'minirose',      name:'ミニローズ',            type:'rose',
+    colors:[{n:'アクア',h:1},{n:'アザミ',h:1},{n:'コーラルピンク',h:1},{n:'ピンク',h:1},{n:'キャロット',h:1},{n:'ダスティブルー',h:1}] },
+  { id:'poppy',         name:'ポピー',               type:'poppy',
+    colors:[{n:'コーラルピンク',h:1},{n:'カーマインレッド',h:1},{n:'アザミ',h:1}] },
+  { id:'gradrose',      name:'グラデーションローズ',  type:'rose',
+    colors:[{n:'Gイエロー',h:1},{n:'Gピンク',h:1},{n:'Gレッド',h:1}] },
+  { id:'rose',          name:'ローズ',               type:'rose',
+    colors:[{n:'レッド',h:1},{n:'ライトピンク',h:1},{n:'ライトブルー',h:1},{n:'クリームイエロー',h:1}] },
+  { id:'damask',        name:'ダマスクローズ',         type:'rose',
+    colors:[{n:'コーラルピンク',h:1},{n:'ライトブルー',h:1}] },
+  { id:'snowpop',       name:'スノーポップ',           type:'poppy',
+    colors:[{n:'ヒマワリ',h:1},{n:'ライトピンク',h:1},{n:'ミルクホワイト',h:1}] },
+  { id:'leaf',          name:'リーフ',               type:'leaf',
+    colors:[{n:'セージ',h:1},{n:'オリーブ',h:1}] },
+  { id:'snowwillow',    name:'スノーウィロー',         type:'leaf',
+    colors:[{n:'セージ',h:1},{n:'オリーブ',h:1}] },
+  { id:'zinnia',        name:'ジニア',               type:'daisy',
+    colors:[{n:'アザミ',h:1},{n:'ダスティブルー',h:1},{n:'カーマインレッド',h:1},{n:'クリームイエロー',h:1},{n:'ベビーピンク',h:1}] },
+  { id:'kasumisou',     name:'カスミソウ',            type:'small',
+    colors:[{n:'ホワイト',h:1}] },
+  { id:'koflower',      name:'小花',                 type:'small',
+    colors:[{n:'ベビーピンク',h:1},{n:'コーラルピンク',h:1},{n:'ローズピンク',h:1},{n:'ライトアクア',h:1},{n:'シトラス',h:1},{n:'クリームイエロー',h:1},{n:'マゼンタ',h:1},{n:'ベージュ',h:1},{n:'アザミ',h:1},{n:'カーマインレッド',h:1},{n:'オレンジ',h:1},{n:'ライトブルー',h:1},{n:'ダスティブルー',h:1}] },
+  { id:'lavender',      name:'ラベンダー',            type:'lavender',
+    colors:[{n:'アザミ',h:1},{n:'パープル',h:1}] },
+  { id:'minipuff',      name:'ミニパフフラワー',       type:'daisy',
+    colors:[{n:'ホワイト',h:1}] },
+  { id:'wasurenagusa',  name:'勿忘草',               type:'small',
+    colors:[{n:'ライトイエロー',h:1},{n:'ライトピンク',h:1},{n:'ライトブルー',h:1}] },
 ];
 
 const PRICES = {
