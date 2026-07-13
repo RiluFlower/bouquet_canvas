@@ -493,7 +493,7 @@ function renderBouquet() {
     return Array.from({length: count}, (_, i) => -maxA + i * (2 * maxA / (count - 1)));
   }
 
-  const BG_IDS = new Set(['snowpop', 'leaf', 'snowwillow', 'oncidium']);
+  const BG_IDS = new Set(['snowpop', 'leaf', 'snowwillow', 'oncidium', 'minipuff']);
   const bgItems = selected.filter(s => BG_IDS.has(s.fid));
   const fgItems = selected.filter(s => !BG_IDS.has(s.fid));
 
