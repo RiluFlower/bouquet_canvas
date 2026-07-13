@@ -265,7 +265,7 @@ const FLOWERS = [
   { id:'rose',          name:'ローズ',               type:'rose',
     colors:[{n:'レッド',h:1},{n:'ライトピンク',h:1},{n:'ライトブルー',h:1},{n:'クリームイエロー',h:1}] },
   { id:'damask',        name:'ダマスクローズ',         type:'rose',
-    colors:[{n:'コーラルピンク',h:0},{n:'ライトブルー',h:0}] },
+    colors:[{n:'コーラルピンク',h:1},{n:'ライトブルー',h:1}] },
   { id:'snowpop',       name:'スノーポップ',           type:'poppy',
     colors:[{n:'ヒマワリ',h:1},{n:'ライトピンク',h:1},{n:'ミルクホワイト',h:1}] },
   { id:'leaf',          name:'リーフ',               type:'leaf',
@@ -279,7 +279,11 @@ const FLOWERS = [
   { id:'koflower',      name:'小花',                 type:'small',
     colors:[{n:'ベビーピンク',h:1},{n:'コーラルピンク',h:1},{n:'ローズピンク',h:1},{n:'ライトアクア',h:1},{n:'シトラス',h:1},{n:'クリームイエロー',h:1},{n:'マゼンタ',h:1},{n:'ベージュ',h:1},{n:'アザミ',h:1},{n:'カーマインレッド',h:1},{n:'オレンジ',h:1},{n:'ライトブルー',h:1},{n:'ダスティブルー',h:1}] },
   { id:'lavender',      name:'ラベンダー',            type:'lavender',
-    colors:[{n:'アザミ',h:0},{n:'パープル',h:0}] },
+    colors:[{n:'アザミ',h:1},{n:'パープル',h:1}] },
+  { id:'minipuff',      name:'ミニパフフラワー',       type:'daisy',
+    colors:[{n:'ホワイト',h:1}] },
+  { id:'wasurenagusa',  name:'勿忘草',               type:'small',
+    colors:[{n:'ライトイエロー',h:1},{n:'ライトピンク',h:1},{n:'ライトブルー',h:1}] },
 ];
 
 const PRICES = {
@@ -288,6 +292,7 @@ const PRICES = {
   poppy: 1700, gradrose: 1700, rose: 1700, damask: 1700,
   snowpop: 900, leaf: 900, snowwillow: 900, zinnia: 1700,
   kasumisou: 900, koflower: 900, lavender: 900,
+  minipuff: 800, wasurenagusa: 900,
 };
 
 let selected = [];
