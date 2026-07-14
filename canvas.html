@@ -381,6 +381,7 @@ function renderGrid() {
 function openSheet(fid) {
   currentFlower = FLOWERS.find(f => f.id === fid);
   currentColorIdx = 0;
+  gtag('event', 'flower_card_tap', { flower_name: currentFlower.name });
   document.getElementById('sheet-flower-name').textContent = currentFlower.name;
   renderColorGrid();
   document.getElementById('sheet-overlay').classList.add('open');
@@ -417,12 +418,15 @@ function addFlower() {
     chex: HEX[c.n] || '#eee',
     imgUrl: c.h ? u(currentFlower.name, c.n) : null,
   });
+  gtag('event', 'flower_added', { flower_name: currentFlower.name, color_name: c.n });
   selected.forEach(s => { s.manualPos = null; s.manualRot = null; });
   closeSheet();
   refresh();
 }
 
 function removeItem(i) {
+  const removed = selected[i];
+  gtag('event', 'flower_removed', { flower_name: removed.fname, color_name: removed.cname });
   selected.splice(i, 1);
   selected.forEach(s => { s.manualPos = null; s.manualRot = null; });
   refresh();
