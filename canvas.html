@@ -262,7 +262,7 @@ const FLOWERS = [
     colors:[{n:'ホワイトセージ',h:1}] },
   { id:'oncidium',      name:'オンシジューム',        type:'orchid',
     colors:[{n:'イエロー',h:1},{n:'ライトイエロー',h:1}] },
-  { id:'minisunflower', name:'ミニヒマワリ',          type:'sunflower',
+  { id:'minisunflower', name:'ミニヒマワリ',          type:'sunflower', hidden:true,
     colors:[{n:'ヒマワリ',h:1},{n:'イエロー',h:1},{n:'クリームイエロー',h:1}] },
   { id:'minirose',      name:'ミニローズ',            type:'rose',
     colors:[{n:'アクア',h:1},{n:'アザミ',h:1},{n:'コーラルピンク',h:1},{n:'ピンク',h:1},{n:'キャロット',h:1},{n:'ダスティブルー',h:1}] },
@@ -362,7 +362,7 @@ function svgShape(type, hex, w, h) {
 /* ---- Render flower grid ---- */
 function renderGrid() {
   const grid = document.getElementById('flower-grid');
-  grid.innerHTML = FLOWERS.map(f => {
+  grid.innerHTML = FLOWERS.filter(f => !f.hidden).map(f => {
     const fc = f.colors[0];
     const count = selected.filter(s => s.fid === f.id).length;
     const thumb = fc.h
