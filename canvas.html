@@ -282,7 +282,7 @@ const FLOWERS = [
     colors:[{n:'セージ',h:1},{n:'オリーブ',h:1}] },
   { id:'zinnia',        name:'ジニア',               type:'daisy',
     colors:[{n:'アザミ',h:1},{n:'ダスティブルー',h:1},{n:'カーマインレッド',h:1},{n:'クリームイエロー',h:1},{n:'ベビーピンク',h:1}] },
-  { id:'gerbera',       name:'ガーベラ',              type:'daisy',
+  { id:'gerbera',       name:'ガーベラ',              type:'daisy', fscale:1.33,
     colors:[{n:'イエロー',h:1},{n:'オレンジ',h:1},{n:'アクア',h:1},{n:'レッド',h:1},{n:'マゼンタ',h:1}] },
   { id:'kasumisou',     name:'カスミソウ',            type:'small',
     colors:[{n:'ホワイト',h:1}] },
@@ -487,16 +487,17 @@ function renderBouquet() {
     const ty = s.manualPos ? s.manualPos.y : 0;
     const manualRot = s.manualRot || 0;
     const totalAngle = angle + manualRot;
+    const ifh = fh * (s.fscale || 1);
     let inner;
     if (s.imgUrl) {
       const rot = 'rotate(' + totalAngle.toFixed(2) + ' ' + bx + ' ' + anchorY + ')';
       inner = '<g data-basangle="' + angle.toFixed(2) + '" data-anchory="' + anchorY + '" data-bx="' + bx + '" transform="' + rot + '">' +
-        '<image href="' + s.imgUrl + '" x="' + (bx-5000) + '" y="' + (anchorY-fh) + '" width="10000" height="' + fh + '" preserveAspectRatio="xMidYMin meet" style="filter:drop-shadow(0 3px 6px rgba(0,0,0,0.15))" pointer-events="none"/>' +
-        '<rect x="' + (bx-60) + '" y="' + (anchorY-fh) + '" width="120" height="' + fh + '" fill="transparent" pointer-events="all"/>' +
+        '<image href="' + s.imgUrl + '" x="' + (bx-5000) + '" y="' + (anchorY-ifh) + '" width="10000" height="' + ifh + '" preserveAspectRatio="xMidYMin meet" style="filter:drop-shadow(0 3px 6px rgba(0,0,0,0.15))" pointer-events="none"/>' +
+        '<rect x="' + (bx-60) + '" y="' + (anchorY-ifh) + '" width="120" height="' + ifh + '" fill="transparent" pointer-events="all"/>' +
         '</g>';
     } else {
       const rad = totalAngle * Math.PI / 180;
-      inner = flowerElem(s.ftype, s.chex, bx + Math.sin(rad)*fh*0.55, anchorY - Math.cos(rad)*fh*0.55);
+      inner = flowerElem(s.ftype, s.chex, bx + Math.sin(rad)*ifh*0.55, anchorY - Math.cos(rad)*ifh*0.55);
     }
     return '<g data-idx="' + idx + '" transform="translate(' + tx + ',' + ty + ')">' + inner + '</g>';
   }
